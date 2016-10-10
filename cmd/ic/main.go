@@ -1,4 +1,4 @@
-package ic
+package main
 
 import (
 	"github.com/coldmine/ic"
