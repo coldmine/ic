@@ -1,5 +1,5 @@
 # IC
-- IC is image converter.
+- IC is Image Converter.
 - It has Command and Package.
 
 #### Install
