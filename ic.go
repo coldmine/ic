@@ -1,8 +1,8 @@
 package ic
 
 import (
-	"image/jpeg"
-	"image/png"
+	_ "image/jpeg"
+	_ "image/png"
 )
 
-func Resize //일단 필요한 기능이다.
+//func Resize //일단 필요한 기능이다.
