@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/coldmine/ic"
-	"fmt"
 	"flag"
+	"log"
 )
 
 func main() {
@@ -28,5 +28,8 @@ func main() {
 	//예외처리 넣을 것.
 
 	//프로세싱.
-	ic.Resize(Input, Output, Width, Height)
+	err := ic.Resize(Input, Output, Width, Height)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

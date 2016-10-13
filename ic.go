@@ -5,19 +5,18 @@ import (
 	_"image/jpeg"
 	_ "image/png"
 	"os"
-	"log"
 	"fmt"
 )
 
-func Resize(ifile, ofile string, width, height int) {
+func Resize(ifile, ofile string, width, height int) error {
 	reader, err := os.Open(ifile)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer reader.Close()
 	m, _, err := image.Decode(reader)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	bounds := m.Bounds()
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
@@ -32,4 +31,5 @@ func Resize(ifile, ofile string, width, height int) {
 	fmt.Println(ofile)
 	fmt.Println(width)
 	fmt.Println(height)
+	return nil
 }
