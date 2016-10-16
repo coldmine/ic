@@ -22,7 +22,7 @@ func Resize(srcpath, dstpath string, width, height int) error {
 	}
 
 	dst := image.NewRGBA(image.Rect(0, 0, width, height))
-	// TODO: Support multiple kernels.
+	// TODO: Support multiple kernels(Kernel is an interpolator that blends source pixels weighted by a symmetric).
 	draw.BiLinear.Scale(dst, dst.Bounds(), src, src.Bounds(), draw.Src, nil)
 
 	// TODO: Support multiple file extensions.
