@@ -8,8 +8,8 @@ import (
 	"golang.org/x/image/draw"
 )
 
-func Resize(ifile, ofile string, width, height int) error {
-	reader, err := os.Open(ifile)
+func Resize(srcpath, dstpath string, width, height int) error {
+	reader, err := os.Open(srcpath)
 	if err != nil {
 		return err
 	}
@@ -24,7 +24,7 @@ func Resize(ifile, ofile string, width, height int) error {
 	draw.BiLinear.Scale(dst, dst.Bounds(), src, src.Bounds(), draw.Src, nil)
 
 	// TODO: Support multiple file extensions.
-	out, err := os.Create(ofile)
+	out, err := os.Create(dstpath)
 	if err != nil {
 		return err
 	}
