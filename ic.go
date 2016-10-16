@@ -9,6 +9,8 @@ import (
 )
 
 func Resize(srcpath, dstpath string, width, height int) error {
+	// TODO: 만약 width값이 0 이라면 height값을 기준으로 autoWidth값을 가지고 온다.
+	// TODO: 만약 height값이 0 이라면 width값을 기준으로 autoHeight값을 가지고 온다.
 	reader, err := os.Open(srcpath)
 	if err != nil {
 		return err
