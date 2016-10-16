@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/coldmine/ic"
 	"flag"
 	"log"
 	"os"
+
+	"github.com/coldmine/ic"
 )
 
 func main() {
@@ -27,7 +28,7 @@ func main() {
 
 	if (Width == 0 && Height == 0) || Input == "" || Output == "" {
 		flag.PrintDefaults()
-		os.Exit(0)
+		os.Exit(1)
 	}
 
 	//예외처리 넣을 것.
