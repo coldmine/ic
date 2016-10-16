@@ -4,6 +4,7 @@ import (
 	"github.com/coldmine/ic"
 	"flag"
 	"log"
+	"os"
 )
 
 func main() {
@@ -23,7 +24,11 @@ func main() {
 	//flag.Float64Var(&Gamma, "g", 1.0, "`Gamma` value")
 	//flag.Float64Var(&Gamma, "gamma", 1.0, "`Gamma` value")
 	flag.Parse()
-	flag.PrintDefaults()
+
+	if Input == "" || Output == "" || Width == 0 || Height == 0 {
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
 
 	//예외처리 넣을 것.
 
