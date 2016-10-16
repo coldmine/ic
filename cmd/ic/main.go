@@ -25,7 +25,7 @@ func main() {
 	//flag.Float64Var(&Gamma, "gamma", 1.0, "`Gamma` value")
 	flag.Parse()
 
-	if Input == "" || Output == "" || Width == 0 || Height == 0 {
+	if (Width == 0 && Height == 0) || Input == "" || Output == "" {
 		flag.PrintDefaults()
 		os.Exit(0)
 	}
