@@ -2,10 +2,11 @@ package ic
 
 import (
 	"image"
-	_"image/jpeg"
+	"image/jpeg"
 	_ "image/png"
 	"os"
-	"fmt"
+
+	"golang.org/x/image/draw"
 )
 
 func Resize(ifile, ofile string, width, height int) error {
@@ -14,22 +15,24 @@ func Resize(ifile, ofile string, width, height int) error {
 		return err
 	}
 	defer reader.Close()
-	m, _, err := image.Decode(reader)
+	src, _, err := image.Decode(reader)
 	if err != nil {
 		return err
 	}
-	bounds := m.Bounds()
-	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-		for x := bounds.Min.X; x < bounds.Max.X; x++ {
-			r, g, b, a := m.At(x,y).RGBA()
-			fmt.Println(r)
-			fmt.Println(g)
-			fmt.Println(b)
-			fmt.Println(a)
-		}
+
+	dst := image.NewRGBA(image.Rect(0, 0, width, height))
+	// TODO: Support multiple kernels.
+	draw.BiLinear.Scale(dst, dst.Bounds(), src, src.Bounds(), draw.Src, nil)
+
+	// TODO: Support multiple file extensions.
+	out, err := os.Create(ofile)
+	if err != nil {
+		return err
 	}
-	fmt.Println(ofile)
-	fmt.Println(width)
-	fmt.Println(height)
+	defer out.Close()
+	err = jpeg.Encode(out, dst, nil)
+	if err != nil {
+		return err
+	}
 	return nil
 }
