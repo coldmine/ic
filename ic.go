@@ -5,7 +5,6 @@ import (
 	"image/jpeg"
 	_ "image/png"
 	"os"
-
 	"golang.org/x/image/draw"
 )
 
