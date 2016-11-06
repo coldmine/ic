@@ -2,6 +2,9 @@ package main
 
 import (
 	"flag"
+	"image"
+	"image/jpeg"
+	_ "image/png"
 	"log"
 	"os"
 
@@ -31,10 +34,39 @@ func main() {
 		os.Exit(1)
 	}
 
+	// 빈 width, height 값 자동으로 계산
+	if width == 0 || height == 0 {
+		s := src.Bounds().Max
+		if width == 0 {
+			width = int(float32(height) / float32(s.Y) * float32(s.X))
+		} else {
+			height = int(float32(width) / float32(s.X) * float32(s.Y))
+		}
+	}
+
 	//예외처리 넣을 것.
 
-	//프로세싱.
-	err := ic.Resize(Input, Output, Width, Height)
+	// 파일 읽기
+	in, err := os.Open(Input)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer in.Close()
+	src, _, err := image.Decode(in)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dst := ic.Resize(src, width, height)
+
+	// 이미지 쓰기
+	// TODO: 여러 파일포맷 지원
+	out, err := os.Create(Output)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer out.Close()
+	err = jpeg.Encode(out, dst, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
